@@ -1,0 +1,22 @@
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors({ origin: process.env.VITE_API_URL || "http://localhost:5173" }));
+app.use(express.json());
+
+// Rotas (serão adicionadas conforme o projeto cresce)
+// app.use("/auth", require("./routes/auth"));
+// app.use("/flashcards", require("./routes/flashcards"));
+// app.use("/decks", require("./routes/decks"));
+
+app.get("/", (req, res) => {
+  res.json({ message: "MangaStudy API rodando 🎌" });
+});
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
+});

@@ -1,0 +1,14 @@
+// This is your Prisma schema file.
+// Será expandido na etapa de modelagem do banco de dados.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Models serão adicionados na próxima etapa:
+// User, Deck, Flashcard, StudySession, MangaTracking
