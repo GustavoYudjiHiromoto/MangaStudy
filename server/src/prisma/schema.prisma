@@ -1,6 +1,3 @@
-// This is your Prisma schema file.
-// Será expandido na etapa de modelagem do banco de dados.
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,5 +7,78 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Models serão adicionados na próxima etapa:
-// User, Deck, Flashcard, StudySession, MangaTracking
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  decks         Deck[]
+  studySessions StudySession[]
+  mangaTracking MangaTracking[]
+
+  @@map("users")
+}
+
+model Deck {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  createdAt   DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  flashcards Flashcard[]
+
+  @@map("decks")
+}
+
+model Flashcard {
+  id           String   @id @default(uuid())
+  front        String
+  back         String
+  reading      String?
+  intervalDays Int      @default(1)
+  easeFactor   Float    @default(2.5)
+  nextReviewAt DateTime @default(now())
+  createdAt    DateTime @default(now())
+
+  deckId String
+  deck   Deck   @relation(fields: [deckId], references: [id], onDelete: Cascade)
+
+  studySessions StudySession[]
+
+  @@map("flashcards")
+}
+
+model StudySession {
+  id           String   @id @default(uuid())
+  quality      Int
+  intervalDays Int
+  reviewedAt   DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  flashcardId String
+  flashcard   Flashcard @relation(fields: [flashcardId], references: [id], onDelete: Cascade)
+
+  @@map("study_sessions")
+}
+
+model MangaTracking {
+  id           String   @id @default(uuid())
+  mangaId      String
+  title        String
+  chaptersRead Int      @default(0)
+  status       String   @default("reading")
+  updatedAt    DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, mangaId])
+  @@map("manga_tracking")
+}
