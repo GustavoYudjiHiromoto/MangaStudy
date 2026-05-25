@@ -5,6 +5,7 @@ const cors = require("cors");
 const authRoutes = require('./routes/auth');
 const deckRoutes = require('./routes/decks');
 const flashcardRoutes = require('./routes/flashcards');
+const studyRoutes = require('./routes/study');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/decks', deckRoutes);
 app.use('/decks/:id/flashcards', flashcardRoutes);
+app.use('/study', studyRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "MangaStudy API rodando 🎌" });
