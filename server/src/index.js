@@ -21,6 +21,7 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/decks', deckRoutes);
 app.use('/decks/:id/flashcards', flashcardRoutes);
+app.use('/flashcards', flashcardRoutes);
 app.use('/study', studyRoutes);
 
 app.get("/", (req, res) => {

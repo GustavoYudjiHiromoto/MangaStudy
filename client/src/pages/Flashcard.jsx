@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 
-function Dashboard() {
+function Flashcard() {
+  const [flashcards, setFlashcards] = useState([]);
+  const [front, setFront] = useState('');
+  const [back, setBack] = useState('');
+  const [reading, setReading] = useState('');
   const [decks, setDecks] = useState([]);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
   const [showForm, setShowForm] = useState(false);
@@ -166,12 +168,6 @@ function Dashboard() {
                 </p>
                 <div className="flex gap-2 mt-4">
                   <button
-                    onClick={() => navigate(`/decks/${deck.id}`)}
-                    className="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg text-sm font-semibold transition"
-                  >
-                    Abrir deck
-                  </button>
-                  <button
                     onClick={() => handleDeleteDeck(deck.id)}
                     className="text-red-400 hover:text-red-300 text-sm transition"
                   >
@@ -187,4 +183,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Flashcard;

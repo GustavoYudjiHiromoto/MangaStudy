@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Study from './pages/Study';
+import DeckDetails from './pages/DeckDetails';
 
 // Pages (serão criadas nas próximas etapas)
 // import Login from "./pages/Login";
@@ -25,6 +26,11 @@ function AppRoutes() {
       <Route path="/" element={
         <PrivateRoute>
           <Dashboard />
+        </PrivateRoute>
+      } />
+        <Route path="/decks/:id" element={
+        <PrivateRoute>
+          <DeckDetails />
         </PrivateRoute>
       } />
       <Route path="/study" element={
